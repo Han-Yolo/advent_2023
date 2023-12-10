@@ -19,9 +19,25 @@ def move():
     next = pos.copy()
     match lines[pos["row"]["col"]]:
         case "|":
-            next["row"] = (
-                pos["row"] - 1 if pos["row"] - 1 != prev["row"] else pos["row"] + 1
-            )
+            if pos["row"] - 1 != prev["row"]:
+                next["row"] -= 1
+            else:
+                next["row"] += 1
+        case "-":
+            if pos["col"] - 1 != prev["col"]:
+                next["col"] -= 1
+            else:
+                next["col"] += 1
+        case "L":
+            if pos["row"] - 1 != prev["row"]:
+                next["row"] -= 1
+            else:
+                next["col"] += 1
+
+    prev = pos
+    pos = next
+    count += 1
+    print(pos)
 
     for row in range(max(pos["row"] - 1, 0), min(pos["row"] + 2, len(lines))):
         for col in range(max(pos["col"] - 1, 0), min(pos["col"] + 2, len(lines[0]))):
